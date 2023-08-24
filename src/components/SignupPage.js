@@ -1,7 +1,20 @@
 import React from 'react';
 import AuthButton from './AuthButton';
-
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 const SigninPage = () => {
+
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    const router = useRouter();
+    const { data: session } = useSession();
+
+    if (session) {
+        router.push('/dashboard');
+        return null;
+    }
+
     return (
         <div className="w-full  h-screen flex justify-center items-center bg-gray-100">
             <div className="w-full max-w-md p-8 rounded-lg">
